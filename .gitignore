@@ -1,0 +1,8 @@
+.project
+.settings
+.classpath
+target
+database.lck
+database.log
+database.properties
+database.script
