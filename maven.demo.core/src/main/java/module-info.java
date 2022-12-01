@@ -9,5 +9,4 @@ module maven.demo.core {
 	requires transitive org.hibernate.orm.core;
 	requires transitive javafx.base;
 	requires jakarta.persistence;
-	requires javafx.graphics;
 }
