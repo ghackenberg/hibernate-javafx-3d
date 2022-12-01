@@ -82,7 +82,7 @@ public abstract class CustomElement extends CustomObject {
 	
 	// Red
 
-	private final IntegerProperty red = new SimpleIntegerProperty(0);
+	private final IntegerProperty red = new SimpleIntegerProperty(128);
 	
 	@Column(nullable = false)
 	public int getRed() {
@@ -97,7 +97,7 @@ public abstract class CustomElement extends CustomObject {
 	
 	// Green
 
-	private final IntegerProperty green = new SimpleIntegerProperty(0);
+	private final IntegerProperty green = new SimpleIntegerProperty(128);
 	
 	@Column(nullable = false)
 	public int getGreen() {
@@ -112,7 +112,7 @@ public abstract class CustomElement extends CustomObject {
 	
 	// Blue
 
-	private final IntegerProperty blue = new SimpleIntegerProperty(0);
+	private final IntegerProperty blue = new SimpleIntegerProperty(128);
 	
 	@Column(nullable = false)
 	public int getBlue() {

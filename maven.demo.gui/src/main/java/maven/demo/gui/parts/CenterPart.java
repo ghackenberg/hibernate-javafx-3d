@@ -1,5 +1,7 @@
 package maven.demo.gui.parts;
 
+import javafx.collections.ListChangeListener;
+import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
@@ -8,15 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+import maven.demo.core.model.CustomElement;
 import maven.demo.gui.Part;
 import maven.demo.gui.utils.Images;
+import maven.demo.gui.utils.Shapes;
 
-public final class CenterPart extends Part {
+public final class CenterPart extends Part implements ListChangeListener<CustomElement> {
 	
 	private final Label label = new Label("Bild");
 	
@@ -24,11 +25,13 @@ public final class CenterPart extends Part {
 	
 	private final PerspectiveCamera camera = new PerspectiveCamera(true);
 	
-	private final Group root = new Group(camera);
+	private final Group scene = new Group();
 	
-	private final SubScene scene = new SubScene(root, 100, 100);
+	private final Group root = new Group(camera, scene);
 	
-	private final Pane pane = new Pane(scene);
+	private final SubScene canvas = new SubScene(root, 100, 100);
+	
+	private final Pane pane = new Pane(canvas);
 	
 	public CenterPart() {
 		camera.setNearClip(0.1);
@@ -37,32 +40,35 @@ public final class CenterPart extends Part {
 		camera.getTransforms().add(new Rotate(-22.5, Rotate.X_AXIS));
 		camera.getTransforms().add(new Translate(0, 0, -100));
 		
-		Box box1 = new Box(5, 5, 5);
-		box1.setMaterial(new PhongMaterial(Color.RED));
-		box1.setDrawMode(DrawMode.FILL);
-		box1.getTransforms().add(new Translate(-10, 0, 0));
-		
-		Box box2 = new Box(5, 5, 5);
-		box2.setMaterial(new PhongMaterial(Color.GREEN));
-		box2.setDrawMode(DrawMode.FILL);
-		box2.getTransforms().add(new Translate(0, 0, 0));
-		
-		Box box3 = new Box(5, 5, 5);
-		box3.setMaterial(new PhongMaterial(Color.BLUE));
-		box3.setDrawMode(DrawMode.FILL);
-		box3.getTransforms().add(new Translate(10, 0, 0));
-		
-		root.getChildren().add(box1);
-		root.getChildren().add(box2);
-		root.getChildren().add(box3);
-		
-		scene.setFill(Color.GRAY);
-		scene.setCamera(camera);
-		scene.widthProperty().bind(pane.widthProperty());
-		scene.heightProperty().bind(pane.heightProperty());
+		canvas.setFill(Color.GRAY);
+		canvas.setCamera(camera);
+		canvas.setDepthTest(DepthTest.ENABLE);
+		canvas.widthProperty().bind(pane.widthProperty());
+		canvas.heightProperty().bind(pane.heightProperty());
 		
 		setTop(bar);
 		setCenter(pane);
+		
+		selectedSceneProperty().addListener((observable, oldScene, newScene) -> {
+			scene.getChildren().clear();
+			if (oldScene != null) {
+				oldScene.elementsProperty().removeListener(this);
+			}
+			if (newScene != null) {
+				for (CustomElement element : newScene.getElements()) {
+					scene.getChildren().add(Shapes.build(element));
+				}
+				newScene.elementsProperty().addListener(this);
+			}
+		});
+	}
+
+	@Override
+	public void onChanged(Change<? extends CustomElement> c) {
+		scene.getChildren().clear();
+		for (CustomElement element : getSelectedScene().getElements()) {
+			scene.getChildren().add(Shapes.build(element));
+		}
 	}
 
 }
