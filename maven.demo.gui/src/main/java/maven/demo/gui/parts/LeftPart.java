@@ -190,6 +190,9 @@ public final class LeftPart extends Part {
 			// Szene in GUI-Komponente eintragen
 			sceneList.getItems().add(scene);
 			
+			// Szene in den sichtbaren Bereich rücken
+			sceneList.scrollTo(scene);
+			
 			// Szene selektieren
 			sceneList.getSelectionModel().select(scene);
 		});
@@ -257,6 +260,9 @@ public final class LeftPart extends Part {
 				
 				// Element zur GUI-Komponente hinzufügen
 				elementList.getItems().add(element);
+				
+				// Element in den sichtbaren Bereich rücken
+				elementList.scrollTo(element);
 				
 				// Element selektieren
 				elementList.getSelectionModel().select(element);
