@@ -9,15 +9,36 @@ import maven.demo.core.model.CustomElement;
 import maven.demo.core.model.CustomObject;
 import maven.demo.core.model.CustomScene;
 
+/**
+ * Basisklasse für Hauptteile der GUI.
+ * 
+ * @author Georg Hackenberg <georg.hackenberg@fh-wels.at>
+ */
 public abstract class Part extends BorderPane {
 
+	/**
+	 * Die Hibernate Session.
+	 */
 	private final ObjectProperty<Session> session = new SimpleObjectProperty<>();
 
+	/**
+	 * Das aktuell selektierte Objekt (Szene oder Element).
+	 */
 	private final ObjectProperty<CustomObject> selectedObject = new SimpleObjectProperty<>();
+	/**
+	 * Die aktuell selektierte Szene.
+	 */
 	private final ObjectProperty<CustomScene> selectedScene = new SimpleObjectProperty<>();
+	/**
+	 * Das aktuell selektierte Element in der Szene.
+	 */
 	private final ObjectProperty<CustomElement> selectedElement = new SimpleObjectProperty<>();
 	
+	/**
+	 * Erzeugt einen GUI-Teil.
+	 */
 	public Part() {
+		// Deaktiviere den GUI-Teil, solange noch keine Datenbankverbindung besteht.
 		disableProperty().bind(session.isNull());
 	}
 	
