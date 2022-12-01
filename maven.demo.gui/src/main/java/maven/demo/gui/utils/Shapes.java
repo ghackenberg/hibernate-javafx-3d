@@ -15,6 +15,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import maven.demo.core.model.CustomElement;
 import maven.demo.core.model.elements.CustomCube;
+import maven.demo.core.model.elements.CustomCylinder;
 import maven.demo.core.model.elements.CustomSphere;
 
 /**
@@ -57,8 +58,13 @@ public final class Shapes {
 				shape = build((CustomCube) element);
 			} else if (element instanceof CustomSphere) {
 				shape = build((CustomSphere) element);
-			} else {
+			} else if (element instanceof CustomCylinder) {
+				
 				// TODO Unterstütze auch Zylinder
+				throw new UnsupportedOperationException("Not implemented yet!");
+				
+			} else {
+				// Informiere den Entwickler über das Problem
 				throw new IllegalStateException("Element type not supported!");
 			}
 			

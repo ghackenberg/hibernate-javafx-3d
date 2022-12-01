@@ -10,6 +10,7 @@ import javafx.beans.property.Property;
 import maven.demo.core.model.CustomElement;
 import maven.demo.core.model.CustomScene;
 import maven.demo.core.model.elements.CustomCube;
+import maven.demo.core.model.elements.CustomCylinder;
 import maven.demo.core.model.elements.CustomSphere;
 
 /**
@@ -56,8 +57,13 @@ public final class Changes {
 			track(session, (CustomCube) element);
 		} else if (element instanceof CustomSphere) {
 			track(session, (CustomSphere) element);
-		} else {
+		} else if (element instanceof CustomCylinder){
+			
 			// TODO Unterstütze auch Zylinder
+			throw new UnsupportedOperationException("Not implemented yet!");
+			
+		} else {
+			// Informiere den Entwickler über das Problem
 			throw new IllegalStateException("Element type not supported!");
 		}
 	}
@@ -143,8 +149,13 @@ public final class Changes {
 			untrack((CustomCube) element);
 		} else if (element instanceof CustomSphere) {
 			untrack((CustomSphere) element);
-		} else {
+		} else if (element instanceof CustomCylinder) {
+			
 			// TODO Unterstütze auch Zylinder
+			throw new UnsupportedOperationException("Not implemented yet!");
+			
+		} else {
+			// Informiere den Entwickler über das Problem
 			throw new IllegalStateException("Element type not supported!");
 		}
 	}

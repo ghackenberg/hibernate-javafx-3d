@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import maven.demo.core.model.CustomElement;
 import maven.demo.core.model.CustomScene;
 import maven.demo.core.model.elements.CustomCube;
+import maven.demo.core.model.elements.CustomCylinder;
 import maven.demo.core.model.elements.CustomSphere;
 import maven.demo.gui.Part;
 import maven.demo.gui.utils.Changes;
@@ -138,9 +139,12 @@ public final class LeftPart extends Part {
 
 							// Setze das Kugelsymbol als Zellengrafik
 							setGraphic(image);
-						} else {
-							// TODO Unterstütze auch Zylinder
+						} else if (element instanceof CustomCylinder) {
 							
+							// TODO Unterstütze auch Zylinder
+							throw new UnsupportedOperationException("Not implemented yet!");
+							
+						} else {
 							// Informiere den Entwickler über das Problem
 							throw new IllegalStateException("Element type not supported!");
 						}
@@ -235,9 +239,12 @@ public final class LeftPart extends Part {
 					sphere.setName("Neue Kugel");
 					
 					element = sphere;
-				} else {
-					// TODO Unterstütze auch Zylinder
+				} else if (choice.equals("Zylinder")) {
 					
+					// TODO Unterstütze auch Zylinder
+					throw new UnsupportedOperationException("Not implemented yet!");
+					
+				} else {
 					// Informiere den Entwickler über das Problem
 					throw new IllegalStateException("Element type not supported!");
 				}

@@ -19,6 +19,7 @@ import maven.demo.core.model.CustomElement;
 import maven.demo.core.model.CustomObject;
 import maven.demo.core.model.CustomScene;
 import maven.demo.core.model.elements.CustomCube;
+import maven.demo.core.model.elements.CustomCylinder;
 import maven.demo.core.model.elements.CustomSphere;
 import maven.demo.gui.Part;
 import maven.demo.gui.utils.Images;
@@ -188,6 +189,8 @@ public final class RightPart extends Part {
 					
 					table.getItems().add(new CustomProperty<>("ID", scene.idProperty(), false, new LongStringConverter()));
 					table.getItems().add(new CustomProperty<>("Name", scene.nameProperty(), true, new DefaultStringConverter()));
+					
+					// TODO Kameraeigenschaften anzeigen und editierbar machen
 				} else if (object instanceof CustomElement) {
 					// Tabellenzeilen für die Eigenschaften des Szenenelements hinzufügens
 					CustomElement element = (CustomElement) object;
@@ -229,9 +232,12 @@ public final class RightPart extends Part {
 						CustomSphere sphere = (CustomSphere) element;
 
 						table.getItems().add(new CustomProperty<>("Radius", sphere.radiusProperty(), true, new DoubleStringConverter()));
-					} else {
-						// TODO Unterstütze auch Zylinder
+					} else if (element instanceof CustomCylinder) {
 						
+						// TODO Unterstütze auch Zylinder
+						throw new UnsupportedOperationException("Not implemented yet!");
+						
+					} else {						
 						// Informiere den Entwickler über das Problem
 						throw new IllegalStateException("Element type not supported!");
 					}
