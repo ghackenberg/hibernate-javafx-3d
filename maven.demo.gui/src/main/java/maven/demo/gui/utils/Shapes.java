@@ -21,8 +21,16 @@ public final class Shapes {
 	
 	private static Map<CustomElement, Group> cache = new HashMap<>();
 
+	/**
+	 * Ein Ezenenelement in eine JavaFX Gruppe und JavaFX 3D Formen übersetzen.
+	 * 
+	 * @param element Das Szenenelement, das übersetzt werden soll.
+	 * 
+	 * @return Die JavaFX Gruppe und enthaltene JavaFX 3D Formen.
+	 */
 	public static Group build(CustomElement element) {
 		if (!cache.containsKey(element)) {
+			// Material definieren und Farbkanäle binden
 			PhongMaterial material = new PhongMaterial(Color.rgb(element.getRed(), element.getGreen(), element.getBlue()));
 			element.redProperty().addListener(nested -> {
 				material.setDiffuseColor(Color.rgb(element.getRed(), element.getGreen(), element.getBlue()));
@@ -34,6 +42,7 @@ public final class Shapes {
 				material.setDiffuseColor(Color.rgb(element.getRed(), element.getGreen(), element.getBlue()));
 			});
 			
+			// Formobjekt erstellen und allgemeine Eigenschaften setzen
 			Shape3D shape;
 			
 			if (element instanceof CustomCube) {
@@ -49,6 +58,13 @@ public final class Shapes {
 			shape.setDrawMode(DrawMode.FILL);
 			shape.setDepthTest(DepthTest.ENABLE);
 			
+			// Translationsobjekt erstellen und Verschiebungen binden
+			Translate translate = new Translate();
+			translate.xProperty().bind(element.xProperty());
+			translate.yProperty().bind(element.yProperty());
+			translate.zProperty().bind(element.zProperty());
+			
+			// Rotationsobjekte erstellen und Winkel binden
 			Rotate rotateX = new Rotate(0, Rotate.X_AXIS);
 			rotateX.angleProperty().bind(element.alphaProperty());
 			
@@ -58,23 +74,28 @@ public final class Shapes {
 			Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
 			rotateZ.angleProperty().bind(element.gammaProperty());
 			
-			Translate translate = new Translate();
-			translate.xProperty().bind(element.xProperty());
-			translate.yProperty().bind(element.yProperty());
-			translate.zProperty().bind(element.zProperty());
-			
+			// Gruppe mit Form erstellen und Transformationen zuweisen
 			Group group = new Group(shape);
 			group.getTransforms().add(translate);
 			group.getTransforms().add(rotateZ);
 			group.getTransforms().add(rotateY);
 			group.getTransforms().add(rotateX);
-			group.setUserData(element);
 			
+			// Gruppe in den Cache speichern
 			cache.put(element, group);
 		}
+		
+		// Gruppe aus dem Cache auslesen und zurückgeben
 		return cache.get(element);
 	}
 	
+	/**
+	 * Eine Szenenwürfel in eine JavaFX 3D Box übersetzen.
+	 * 
+	 * @param cube Der Szenenwürfel, der übersetzt werden soll.
+	 * 
+	 * @return Die JavaFX 3D Box für den Szenenwürfel.
+	 */
 	private static Shape3D build(CustomCube cube) {
 		Box shape = new Box();
 		shape.widthProperty().bind(cube.widthProperty());
@@ -83,7 +104,14 @@ public final class Shapes {
 		
 		return shape;
 	}
-	
+
+	/**
+	 * Eine Szenenkugel in eine JavaFX 3D Sphere übersetzen.
+	 * 
+	 * @param cube Die Szenenkugel, der übersetzt werden soll.
+	 * 
+	 * @return Die JavaFX 3D Sphere für die Szenenkugel.
+	 */
 	private static Shape3D build(CustomSphere sphere) {
 		Sphere shape = new Sphere(0, 100);
 		shape.radiusProperty().bind(sphere.radiusProperty());
