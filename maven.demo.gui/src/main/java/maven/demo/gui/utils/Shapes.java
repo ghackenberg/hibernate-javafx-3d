@@ -17,8 +17,16 @@ import maven.demo.core.model.CustomElement;
 import maven.demo.core.model.elements.CustomCube;
 import maven.demo.core.model.elements.CustomSphere;
 
+/**
+ * Übersetzt Szenenelemente in JavaFX 3D Formen.
+ * 
+ * @author Georg Hackenberg <georg.hackenberg@fh-wels.at>
+ */
 public final class Shapes {
 	
+	/**
+	 * Cache der JavaFX Gruppen und 3D Formen.
+	 */
 	private static Map<CustomElement, Group> cache = new HashMap<>();
 
 	/**
