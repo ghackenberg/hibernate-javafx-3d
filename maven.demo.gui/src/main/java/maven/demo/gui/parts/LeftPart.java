@@ -134,6 +134,8 @@ public final class LeftPart extends Part {
 							// Setze das Kugelsymbol als Zellengrafik
 							setGraphic(image);
 						} else {
+							// TODO Unterstütze auch Zylinder
+							
 							// Informiere den Entwickler über das Problem
 							throw new IllegalStateException("Element type not supported!");
 						}
@@ -226,6 +228,8 @@ public final class LeftPart extends Part {
 					
 					element = sphere;
 				} else {
+					// TODO Unterstütze auch Zylinder
+					
 					// Informiere den Entwickler über das Problem
 					throw new IllegalStateException("Element type not supported!");
 				}

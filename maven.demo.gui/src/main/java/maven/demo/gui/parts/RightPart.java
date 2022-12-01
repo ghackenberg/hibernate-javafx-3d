@@ -177,6 +177,8 @@ public final class RightPart extends Part {
 
 						table.getItems().add(new CustomProperty<>("Radius", sphere.radiusProperty(), true, new DoubleStringConverter()));
 					} else {
+						// TODO Unterstütze auch Zylinder
+						
 						// Informiere den Entwickler über das Problem
 						throw new IllegalStateException("Element type not supported!");
 					}

@@ -35,6 +35,7 @@ public final class Shapes {
 		} else if (element instanceof CustomSphere) {
 			shape = build((CustomSphere) element);
 		} else {
+			// TODO Unterstütze auch Zylinder
 			throw new IllegalStateException("Element type not supported!");
 		}
 		

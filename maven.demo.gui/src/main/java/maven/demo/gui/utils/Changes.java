@@ -37,6 +37,7 @@ public final class Changes {
 		} else if (element instanceof CustomSphere) {
 			track(session, (CustomSphere) element);
 		} else {
+			// TODO Unterstütze auch Zylinder
 			throw new IllegalStateException("Element type not supported!");
 		}
 	}
@@ -87,6 +88,7 @@ public final class Changes {
 		} else if (element instanceof CustomSphere) {
 			untrack((CustomSphere) element);
 		} else {
+			// TODO Unterstütze auch Zylinder
 			throw new IllegalStateException("Element type not supported!");
 		}
 	}

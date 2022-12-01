@@ -34,6 +34,7 @@ public final class CenterPart extends Part implements ListChangeListener<CustomE
 	private final Pane pane = new Pane(canvas);
 	
 	public CenterPart() {
+		// TODO Mache Kameraeigenschaften editierbar
 		camera.setNearClip(0.1);
 		camera.setFarClip(1000.0);
 		camera.getTransforms().add(new Rotate(45, Rotate.Y_AXIS));
