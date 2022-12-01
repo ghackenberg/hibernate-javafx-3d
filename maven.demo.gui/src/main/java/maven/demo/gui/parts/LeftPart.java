@@ -24,6 +24,11 @@ import maven.demo.gui.utils.Changes;
 import maven.demo.gui.utils.Images;
 import maven.demo.gui.utils.Layouts;
 
+/**
+ * Darstellen der Szenenobjekte als Szenenliste und Szenenelementliste sowie Hinzufügen und Löschen ermöglichen.
+ * 
+ * @author Georg Hackenberg <georg.hackenberg@fh-wels.at>
+ */
 public final class LeftPart extends Part {
 	
 	private final Label sceneLabel = new Label("Szenen");
@@ -310,6 +315,7 @@ public final class LeftPart extends Part {
 		
 		setCenter(grid);
 
+		// Reagiere auf Änderungen der Hibernate Session
 		sessionProperty().addListener(event -> {
 			// Leere die Szenenliste
 			sceneList.getItems().clear();
@@ -333,8 +339,9 @@ public final class LeftPart extends Part {
 				sceneList.getItems().addAll(scenes);
 			}
 		});
-		
+		// Binde die selektierte Szene
 		selectedSceneProperty().bind(sceneList.getSelectionModel().selectedItemProperty());
+		// Binde das selektierte Szenenelemement
 		selectedElementProperty().bind(elementList.getSelectionModel().selectedItemProperty());
 	}
 	
